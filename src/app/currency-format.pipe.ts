@@ -7,6 +7,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CurrencyFormatPipe implements PipeTransform {
   transform(value: number): string {
     if (value == null) return '';
-    return `R$ ${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(",", ".")}`
+    const formatarValor = value
+    .toFixed(2)
+    .replace('.', ',')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return `R$ ${formatarValor}`;
   }
 }

@@ -8,5 +8,5 @@ export const METAS_CAMPANHAS = [
 
   export const METAS_INFOS_ESTATICOS = {
     nomeCampanha: 'Suas compras valem Mais',
-    descricaoCampanha: 'Apenas usando o cartão de crédito, assim ficou mais fácil, pagar as contas por débito automático pode gerar recompensas, seu dinheiro pode render no CDB, e você pode retira-lo, desconto toda vez que realizar uma atividade cultural, seguro celular adicional, receba os valores de volta.'
+    descricaoCampanha: 'Escolha um dos objetivos para alcançar e receba recompensas.'
   }
