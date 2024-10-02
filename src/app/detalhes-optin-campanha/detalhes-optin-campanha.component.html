@@ -1,8 +1,8 @@
 <div class="container m-5">
     <div class="row">
         <div class="col-8">
-            <h2>{{ metasInfosEstaticos.nomeCampanha }}</h2>
-            <p>{{ metasInfosEstaticos.descricaoCampanha }}</p>
+            <h2>{{ metasCampanhas[0]?.nome }}</h2>
+            <p>Escolha uma das metas para prosseguir.</p>
         </div>
         <div class="col-4">
             <a class="d-flex justify-content-center align-items-center" href="http://" target="_blank"
@@ -24,30 +24,30 @@
             </span>
         </div>
 
-        <div class="col-10 d-flex justify-content-evenly align-items-center">
+        <div class="col-10">
             <div class="carousel-container">
                 <div class="carousel-wrapper">
-                    <div class="carousel-card" *ngFor="let card of metasCampanhas; let i = index">
 
+                    <div *ngFor="let card of metasCampanhas; let i = index" class="carousel-card d-flex justify-content-evenly align-items-center" >
                         <!-- cards -->
-                        <div class="m-3 cards-objetivos">
+                        <div *ngFor="let meta of card.metas; let j = index" class="m-3 cards-objetivos">
                             <!-- INFOS METAS -->
                             <div class="infos-metas infos-metas-{{i}}"
-                                [ngClass]="{ 'hidden': calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) === 100 }">
-                                <h2>{{ card.titulo }}</h2>
+                                [ngClass]="{ 'hidden': (card.metas['meta' + metaSelecionada[i]]) === 100 }">
+                                <h2>{{ meta.ciclo }}</h2>
                                 <p>{{ card.descricao }}</p>
 
                                 <!-- escolha das metas -->
                                 <button class="cards-valores-metas" [ngClass]="{'active': metaSelecionada[i] === 1}"
-                                    (click)="selecionarMeta(card.metas.meta1 , i, 1 )">{{ card.metas.meta1 |
+                                    (click)="selecionarMeta(meta.valoresMeta[0].valorMeta , i, 1 )">{{ meta.valoresMeta[0].valorMeta |
                                     currencyFormat }}</button>
 
                                 <button class="cards-valores-metas" [ngClass]="{'active': metaSelecionada[i] === 2}"
-                                    (click)="selecionarMeta(card.metas.meta2, i, 2)">{{ card.metas.meta2 |
+                                    (click)="selecionarMeta(meta.valoresMeta[1].valorMeta, i, 2)">{{ meta.valoresMeta[1].valorMeta |
                                     currencyFormat }}</button>
 
                                 <button class="cards-valores-metas" [ngClass]="{'active': metaSelecionada[i] === 3}"
-                                    (click)="selecionarMeta(card.metas.meta3, i, 3)">{{ card.metas.meta3 |
+                                    (click)="selecionarMeta(meta.valoresMeta[2].valorMeta, i, 3)">{{ meta.valoresMeta[1].valorMeta |
                                     currencyFormat }}
                                 </button>
 
@@ -66,21 +66,21 @@
 
                             <!-- INFOS OBJETIVOS -->
                             <div class="infos-objetivo infos-objetivo-{{i}}"
-                                [ngClass]="{ 'hidden': calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) === 100 }">
+                                [ngClass]="{ 'hidden': (card.metas['meta' + metaSelecionada[i]]) === 100 }">
                                 <h3 class="titulo-objetivo">{{ card.titulo }}</h3>
                                 <div class="d-flex justify-content-between">
-                                    <p>Suas compras:</p><span>{{ cliente.comprasCartao | currencyFormat }}</span>
+                                    <p>Suas compras:</p><span>0000</span>
                                 </div>
                                 <!-- barra de progressão -->
                                 <div class="progress mb-3" role="progressbar" aria-label="Andamento da meta"
-                                    [attr.aria-valuenow]="metaSelecionada[i] !== null && card.metas['meta' + metaSelecionada[i]] ? calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) : 0"
+                                    [attr.aria-valuenow]="metaSelecionada[i] !== null && card.metas['meta' + metaSelecionada[i]] ? (card.metas['meta' + metaSelecionada[i]]) : 0"
                                     aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar bg-success"
-                                        [style.width.%]="metaSelecionada[i] !== null ? calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) : 0">
+                                        [style.width.%]="metaSelecionada[i] !== null ? (card.metas['meta' + metaSelecionada[i]]) : 0">
 
                                         <ng-container
-                                            *ngIf="metaSelecionada[i] !== null ? calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) : 0">
-                                            {{ (calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) |
+                                            *ngIf="metaSelecionada[i] !== null ? (card.metas['meta' + metaSelecionada[i]]) : 0">
+                                            {{ ((card.metas['meta' + metaSelecionada[i]]) |
                                             number:'1.0-2')}} %
                                         </ng-container>
                                     </div>
@@ -101,14 +101,14 @@
 
                                 </div>
 
-                                <!-- <a href="javascript:void(0)" (click)="mudarObjetivo(i)"
+                                <a href="javascript:void(0)" (click)="mudarObjetivo(i)"
                                     class="link-mudar-objetivo">Mudar
-                                    objetivo</a> -->
-                                <span>Não é posível mudar seu objetivo</span>
+                                    objetivo</a>
+                                <!-- <span>Não é posível mudar seu objetivo</span> -->
                             </div>
 
                             <!-- INFOS METAS CONCLUÍDAS -->
-                            <div *ngIf="calcularPorcentagem(card.metas['meta' + metaSelecionada[i]]) === 100"
+                            <div *ngIf="(card.metas['meta' + metaSelecionada[i]]) === 100"
                                 class="infos-meta-concluida infos-meta-concluida-{{i}} show">
                                 <h3>Meta concluída</h3>
                                 <p>parabéns, você atingiu a meta!</p>
